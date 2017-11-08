@@ -8,8 +8,8 @@ Version of Xcode:9.1
 <br></br>
 1st ViewContoller
 <br></br>
-![Screenshot](screen1.png)
+![Screenshot](screen1.PNG)
 <br></br>
 2nd ViewContoller
 <br></br>
-![Screenshot](screen2.png)
+![Screenshot](screen2.PNG)
