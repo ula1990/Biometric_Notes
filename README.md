@@ -1,4 +1,4 @@
-# Secure_Notes
+# Protected Notes Pro
 This application give you opportunity to create a notes with pictures and secure them with your Biometric data(TouchID or FaceID )
 App was created with Core Data and collecting full information which you put in the Notes and info will be available also after you close the app.
 
@@ -6,6 +6,8 @@ Additional Preview Screenshot was hided in multitasking.
 
 Version Swift:Swift 4
 Version of Xcode:9.1
+
+<h1>Application was sended for review in the AppStore 19.11.2017</h1>
 
 
 <br></br>
