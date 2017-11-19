@@ -74,7 +74,7 @@ class SecureNotesTableTableViewController: UITableViewController, UIImagePickerC
 
         let noteItem = notes[indexPath.row]
         
-        if let noteImage = UIImage(data: noteItem.image as! Data){
+        if let noteImage = UIImage(data: noteItem.image as Data!){
             cell.backgroundImg.image = noteImage
             
         }
@@ -86,7 +86,7 @@ class SecureNotesTableTableViewController: UITableViewController, UIImagePickerC
         return cell
     }
 
-    //ADD NOTE
+    //ADD Image
     
     @IBAction func addNote(_ sender: Any) {
         
@@ -124,6 +124,7 @@ class SecureNotesTableTableViewController: UITableViewController, UIImagePickerC
         
     }
     
+    // Create a note
     
     func createNoteItem (with image: UIImage){
         
@@ -160,6 +161,29 @@ class SecureNotesTableTableViewController: UITableViewController, UIImagePickerC
         self.present(inputAlert, animated: true, completion: nil)
         
     }
+    
+    //Delete note
+    
+    override func tableView(_ tableView: UITableView,commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete
+        {
+            let appDel: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let managedObjectContext = appDel.persistentContainer.viewContext
+            let contxt = managedObjectContext
+            contxt.delete(notes[indexPath.row])
+            notes.remove(at: indexPath.row)
+            
+            let _ : NSError! = nil
+            do {
+                try contxt.save()
+                self.tableView.reloadData()
+            } catch {
+                print("error : \(error)")
+            }
+        
+    }
+    }
+    
     
     /*
     // Override to support conditional editing of the table view.
@@ -205,5 +229,6 @@ class SecureNotesTableTableViewController: UITableViewController, UIImagePickerC
         // Pass the selected object to the new view controller.
     }
     */
+   
 
 }

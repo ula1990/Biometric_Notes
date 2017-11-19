@@ -25,7 +25,7 @@ class LoginWindowViewController: UIViewController {
             
             context.evaluatePolicy(
                 LAPolicy.deviceOwnerAuthenticationWithBiometrics,
-                localizedReason: "Access to Notes requires authentication",
+                localizedReason: "Access to Notes requires authentication 🔑",
                 reply: {(success, error) in
                     DispatchQueue.main.async {
                         
@@ -38,8 +38,8 @@ class LoginWindowViewController: UIViewController {
                                 self.alertUser("Please try again",
                                                err: error?.localizedDescription)
                             case LAError.Code.userFallback.rawValue:
-                                self.alertUser("Authentication",
-                                               err: "Password option selected")
+                                self.alertUser("Ups..🙁",
+                                               err: "Only Biometric Authentication ")
                             default:
                                 self.alertUser("Authentication failed",
                                                err: error?.localizedDescription)
@@ -72,6 +72,71 @@ class LoginWindowViewController: UIViewController {
         
         
     }
+    
+    
+    @IBAction func touchIdButton(_ sender: Any) {
+        
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(
+            LAPolicy.deviceOwnerAuthenticationWithBiometrics,
+            error: &error) {
+            
+            
+            context.evaluatePolicy(
+                LAPolicy.deviceOwnerAuthenticationWithBiometrics,
+                localizedReason: "Access to Notes requires authentication 🔑",
+                reply: {(success, error) in
+                    DispatchQueue.main.async {
+                        
+                        if error != nil {
+                            switch error!._code {
+                            case LAError.Code.systemCancel.rawValue:
+                                self.alertUser("Session cancelled",
+                                               err: error?.localizedDescription)
+                            case LAError.Code.userCancel.rawValue:
+                                self.alertUser("Please try again",
+                                               err: error?.localizedDescription)
+                            case LAError.Code.userFallback.rawValue:
+                                self.alertUser("Ups..🙁",
+                                               err: "Only Biometric Authentication")
+                            default:
+                                self.alertUser("Authentication failed",
+                                               err: error?.localizedDescription)
+                            }
+                            
+                        } else {
+                            self.performSegue(withIdentifier: "LoginSuccess", sender: self.navigationController)
+                        }
+                    }
+            })
+            
+        }
+        
+        else  {
+            // Device cannot use TouchID
+            switch error!.code{
+                
+            case LAError.Code.biometryNotEnrolled.rawValue:
+                alertUser("TouchID is not enrolled",
+                          err: error?.localizedDescription)
+                
+            case LAError.Code.passcodeNotSet.rawValue:
+                alertUser("A passcode has not been set",
+                          err: error?.localizedDescription)
+                
+            default:
+                alertUser("TouchID not available",
+                          err: error?.localizedDescription)
+                
+            }
+        }
+        
+        
+    }
+    
+    
+    
     func alertUser(_ msg: String, err: String?) {
         let alert = UIAlertController(title: msg,
                                       message: err,
@@ -85,6 +150,7 @@ class LoginWindowViewController: UIViewController {
         self.present(alert, animated: true,
                      completion: nil)
     }
+    
     
     
 
@@ -109,5 +175,8 @@ class LoginWindowViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+   
 
 }
