@@ -1,15 +1,22 @@
 # Secure_Notes
-This application give you opportunity to create a notes with pictures and secure them with your Biometric data(TouchID)
-App was created with Core Data and collecting full information which you put in the Notes and will be available also after you close the app.
+This application give you opportunity to create a notes with pictures and secure them with your Biometric data(TouchID or FaceID )
+App was created with Core Data and collecting full information which you put in the Notes and info will be available also after you close the app.
+
+Additional Preview Screenshot was hided in multitasking.
 
 Version Swift:Swift 4
 Version of Xcode:9.1
 
+
+<br></br>
+Icon
+<br></br>
+![Screenshot](icon.png)
 <br></br>
 1st ViewContoller
 <br></br>
-![Screenshot](screen1.PNG)
+![Screenshot](screen1.png)
 <br></br>
 2nd ViewContoller
 <br></br>
-![Screenshot](screen2.PNG)
+![Screenshot](screen2.png)
