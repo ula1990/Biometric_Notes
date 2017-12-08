@@ -25,7 +25,7 @@ class LoginWindowViewController: UIViewController {
             
             context.evaluatePolicy(
                 LAPolicy.deviceOwnerAuthenticationWithBiometrics,
-                localizedReason: "Access to Notes requires authentication 🔑",
+                localizedReason: "Access to Notes requires Authentication",
                 reply: {(success, error) in
                     DispatchQueue.main.async {
                         
@@ -56,7 +56,7 @@ class LoginWindowViewController: UIViewController {
             switch error!.code{
                 
             case LAError.Code.biometryNotEnrolled.rawValue:
-                alertUser("TouchID is not enrolled",
+                alertUser("Biometric device is not enrolled",
                           err: error?.localizedDescription)
                 
             case LAError.Code.passcodeNotSet.rawValue:
@@ -64,7 +64,7 @@ class LoginWindowViewController: UIViewController {
                           err: error?.localizedDescription)
                 
             default:
-                alertUser("TouchID not available",
+                alertUser("Biometric Device not available",
                           err: error?.localizedDescription)
                 
             }
@@ -85,7 +85,7 @@ class LoginWindowViewController: UIViewController {
             
             context.evaluatePolicy(
                 LAPolicy.deviceOwnerAuthenticationWithBiometrics,
-                localizedReason: "Access to Notes requires authentication 🔑",
+                localizedReason: "Access to Notes requires Biometric Authentication",
                 reply: {(success, error) in
                     DispatchQueue.main.async {
                         
@@ -127,6 +127,70 @@ class LoginWindowViewController: UIViewController {
                 
             default:
                 alertUser("TouchID not available",
+                          err: error?.localizedDescription)
+                
+            }
+        }
+        
+        
+    }
+    
+    
+    
+    
+    @IBAction func faceIdButton(_ sender: Any) {
+        
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(
+            LAPolicy.deviceOwnerAuthenticationWithBiometrics,
+            error: &error) {
+            
+            
+            context.evaluatePolicy(
+                LAPolicy.deviceOwnerAuthenticationWithBiometrics,
+                localizedReason: "Access to Notes requires Biometric Authentication",
+                reply: {(success, error) in
+                    DispatchQueue.main.async {
+                        
+                        if error != nil {
+                            switch error!._code {
+                            case LAError.Code.systemCancel.rawValue:
+                                self.alertUser("Session cancelled",
+                                               err: error?.localizedDescription)
+                            case LAError.Code.userCancel.rawValue:
+                                self.alertUser("Please try again",
+                                               err: error?.localizedDescription)
+                            case LAError.Code.userFallback.rawValue:
+                                self.alertUser("Ups..🙁",
+                                               err: "Only Biometric Authentication")
+                            default:
+                                self.alertUser("Authentication failed",
+                                               err: error?.localizedDescription)
+                            }
+                            
+                        } else {
+                            self.performSegue(withIdentifier: "LoginSuccess", sender: self.navigationController)
+                        }
+                    }
+            })
+            
+        }
+            
+        else  {
+            // Device cannot use FaceID
+            switch error!.code{
+                
+            case LAError.Code.biometryNotEnrolled.rawValue:
+                alertUser("FaceID is not enrolled",
+                          err: error?.localizedDescription)
+                
+            case LAError.Code.passcodeNotSet.rawValue:
+                alertUser("A passcode has not been set",
+                          err: error?.localizedDescription)
+                
+            default:
+                alertUser("FaceID not available",
                           err: error?.localizedDescription)
                 
             }
