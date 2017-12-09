@@ -25,7 +25,7 @@ class AboutWindowViewController: UIViewController, MFMailComposeViewControllerDe
     }
     
     @IBAction func twitterButton(_ sender: Any) {
-          openButtonUrl(urlStr: "https://twitter.com/")
+          openButtonUrl(urlStr: "https://twitter.com/daratsiuk")
     }
     
     @IBAction func emailButton(_ sender: Any) {
