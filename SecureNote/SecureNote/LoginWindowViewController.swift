@@ -19,12 +19,12 @@ class LoginWindowViewController: UIViewController {
         var error: NSError?
         
         if context.canEvaluatePolicy(
-            LAPolicy.deviceOwnerAuthenticationWithBiometrics,
+            LAPolicy.deviceOwnerAuthentication,
             error: &error) {
             
             
             context.evaluatePolicy(
-                LAPolicy.deviceOwnerAuthenticationWithBiometrics,
+                LAPolicy.deviceOwnerAuthentication,
                 localizedReason: "Access to Notes requires Authentication",
                 reply: {(success, error) in
                     DispatchQueue.main.async {
