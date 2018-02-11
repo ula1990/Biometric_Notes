@@ -17,16 +17,4 @@ Icon
 <br></br>
 ![Screenshot](icon.png)
 <br></br>
-1st ViewContoller
-<br></br>
-![Screenshot](screen1.png)
-<br></br>
-2nd ViewContoller
-<br></br>
-![Screenshot](screen2.png)
-<br></br>
-![Screenshot](screen3.png)
-<br></br>
-3rd ViewContoller
-<br></br>
-![Screenshot](screen4.png)
+![Screenshot](Biometric_Notes.jpg)
